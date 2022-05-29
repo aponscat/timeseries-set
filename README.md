@@ -7,17 +7,35 @@ The default time period is "one minute" ('YmdHi'). You can change this behaviour
 Usage:
 ```
 use Apons\TimeSeriesSet\TimeSeriesSet;
-use Apons\TimeSeriesSet\MemcachedCacheSet;
+use Apons\TimeSeriesSet\Adapters\Memcached\MemcachedSet;
+use Apons\TimeSeriesSet\Adapters\Memcached\MemcachedSetStorage;
+use Apons\TimeSeriesSet\Interfaces\SetStorageInterface;
 ...
 
-// Create the TimeSeriesSetObject inject a CacheSet object
-// MemCached and Array samples provided)
-$timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet());
+// Create a new memcached object
+$m = new \Memcached();
+$m->addServer('localhost', 11211);
+$m->setOption(\Memcached::OPT_COMPRESSION, false);
+
+// Create a MemcachedSetStorage object injecting the memcached connection
+// The second parameter indicates the number of seconds that memcached 
+// will keep the items stored (default 3.600 seconds (1 hour))
+$s=new MemcachedSetStorage($m, 3600);
+
+// Create a new TimeSeriesSet injecting the MemcachedSet newly created
+// note than the second parameter sets the time frame used
+// For example:
+// 'YmdHi' --> minute intervals
+// 'YmdH'  --> hour interval
+$timeSeriesSet=new TimeSeriesSet(new MemcachedSet($s), 'YmdHi');
 
 // Add the tag you want to count, by default counts this tag in the current time()
 // use the second optional parameter to pass a timestamp (used for testing purposes usually)
 $timeSeriesSet->add('tag1999');
 
+or 
+
+$timeSeriesSet->add('tag1999', (new DateTime("2022-02-02 10:01:02"))->getTimestamp());
 ...
 
 // Finally count the tags in a given time period
