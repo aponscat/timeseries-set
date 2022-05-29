@@ -1,4 +1,6 @@
 {
+    "name": "aponscat/timeseries-set",
+    "description": "Add tags in a set and afterwards retrieve the number of tags in a given time",
     "autoload": {
         "psr-4": { "Apons\\": "src/" }
     },
