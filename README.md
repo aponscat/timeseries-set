@@ -1,4 +1,4 @@
-## TimeSeriesSet Package
+## TimeSeriesSet Package v1.0.0
 
 This package allows you to add different "tags" in different times, the Set "counts" the number of "tags" that appears in a given period of time.
 
