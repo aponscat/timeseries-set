@@ -1,6 +1,14 @@
 {
     "name": "aponscat/timeseries-set",
     "description": "Add tags in a set and afterwards retrieve the number of tags in a given time",
+    "type": "package",
+    "license": "GPL-2.0+",
+    "authors": [
+      {
+        "name": "Agusti Pons",
+        "role": "developer"
+      }
+    ],
     "autoload": {
         "psr-4": { "Apons\\": "src/" }
     },
