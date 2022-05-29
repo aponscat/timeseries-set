@@ -3,16 +3,27 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Apons\TimeSeriesSet\TimeSeriesSet;
-use Apons\TimeSeriesSet\MemcachedCacheSet;
+use Apons\TimeSeriesSet\MemcachedSet;
+use Apons\TimeSeriesSet\SetStorageInterface;
+use Apons\TimeSeriesSet\MemcachedSetStorage;
 
 final class TimeSeriesSetMemcacheTest extends TestCase
 {
+    public SetStorageInterface $s;
+
+    public function setUp (): void
+    {
+        $m = new \Memcached();
+        $m->addServer('localhost', 11211);
+        $m->setOption(\Memcached::OPT_COMPRESSION, false);
+        $this->s=new MemcachedSetStorage($m);
+    }
 
     public function testSameTagInCurrentMinute()
     {
         $time = time();
         $tag='testtag';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s), 'YmdHi');
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag, $time);
         $set=$timeSeriesSet->getAllTagsInTime($time);
@@ -23,7 +34,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
     {
         $time1 = (new DateTime("2022-02-02 10:01:02"))->getTimestamp();
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s), 'YmdHi');
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag1, $time1);
         $set=$timeSeriesSet->getAllTagsInTime((new DateTime("2022-02-02 10:01"))->getTimestamp());
@@ -38,7 +49,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:01:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s), 'YmdHi');
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
@@ -56,7 +67,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:01:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s), 'YmdHi');
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
@@ -75,7 +86,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:05:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s));
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
@@ -99,7 +110,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
 
         $tag1='tag1';
         $tag2='tag2';
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s));
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
@@ -116,7 +127,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
     {
 
         $start = (new DateTime("2022-02-02 10:01:00"))->getTimestamp();
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s));
         $timeSeriesSet->clear();
 
         foreach (range(0,120) as $second)
@@ -147,7 +158,7 @@ final class TimeSeriesSetMemcacheTest extends TestCase
     {
 
         $start = (new DateTime("2022-02-02 10:01:00"))->getTimestamp();
-        $timeSeriesSet=new TimeSeriesSet(new MemcachedCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new MemcachedSet($this->s));
         $timeSeriesSet->clear();
 
         foreach (range(0,120) as $second)

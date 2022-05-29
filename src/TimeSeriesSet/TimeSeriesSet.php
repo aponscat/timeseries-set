@@ -5,9 +5,9 @@ namespace Apons\TimeSeriesSet;
 class TimeSeriesSet {
 
   private string $datePattern;
-  private CacheSetInterface $cacheSet;
+  private SetInterface $cacheSet;
 
-  public function __construct (CacheSetInterface $cacheSet, string $datePattern='YmdHi')
+  public function __construct (SetInterface $cacheSet, string $datePattern='YmdHi')
   {
     $this->cacheSet=$cacheSet;
     $this->datePattern=$datePattern;

@@ -3,7 +3,8 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Apons\TimeSeriesSet\TimeSeriesSet;
-use Apons\TimeSeriesSet\ArrayCacheSet;
+use Apons\TimeSeriesSet\ArraySet;
+use Apons\TimeSeriesSet\ArraySetStorage;
 
 final class TimeSeriesSetArrayTest extends TestCase
 {
@@ -12,7 +13,7 @@ final class TimeSeriesSetArrayTest extends TestCase
     {
         $time = time();
         $tag='testtag';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->clear();
         $timeSeriesSet->add($tag, $time);
         $set=$timeSeriesSet->getAllTagsInTime($time);
@@ -24,7 +25,7 @@ final class TimeSeriesSetArrayTest extends TestCase
     {
         $time1 = (new DateTime("2022-02-02 10:01:02"))->getTimestamp();
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->add($tag1, $time1);
         $set=$timeSeriesSet->getAllTagsInTime((new DateTime("2022-02-02 10:01"))->getTimestamp());
         $this->assertTrue($set[$tag1]==1);
@@ -38,7 +39,7 @@ final class TimeSeriesSetArrayTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:01:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
         $timeSeriesSet->add($tag1, $time3);
@@ -56,7 +57,7 @@ final class TimeSeriesSetArrayTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:01:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet(), 'YmdHi');
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
         $timeSeriesSet->add($tag1, $time3);
@@ -74,7 +75,7 @@ final class TimeSeriesSetArrayTest extends TestCase
         $time4 = (new DateTime("2022-02-02 10:05:25"))->getTimestamp();
 
         $tag1='tag1';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
         $timeSeriesSet->add($tag1, $time3);
@@ -97,7 +98,7 @@ final class TimeSeriesSetArrayTest extends TestCase
 
         $tag1='tag1';
         $tag2='tag2';
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->add($tag1, $time1);
         $timeSeriesSet->add($tag1, $time2);
         $timeSeriesSet->add($tag1, $time3);
@@ -114,7 +115,7 @@ final class TimeSeriesSetArrayTest extends TestCase
     {
 
         $start = (new DateTime("2022-02-02 10:01:00"))->getTimestamp();
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->clear();
 
         foreach (range(0,120) as $second)
@@ -145,7 +146,7 @@ final class TimeSeriesSetArrayTest extends TestCase
     {
 
         $start = (new DateTime("2022-02-02 10:01:00"))->getTimestamp();
-        $timeSeriesSet=new TimeSeriesSet(new ArrayCacheSet());
+        $timeSeriesSet=new TimeSeriesSet(new ArraySet(new ArraySetStorage()));
         $timeSeriesSet->clear();
 
         foreach (range(0,120) as $second)
