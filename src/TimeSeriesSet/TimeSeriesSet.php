@@ -2,6 +2,8 @@
 
 namespace Apons\TimeSeriesSet;
 
+use Apons\TimeSeriesSet\Interfaces\SetInterface;
+
 class TimeSeriesSet {
 
   private string $datePattern;

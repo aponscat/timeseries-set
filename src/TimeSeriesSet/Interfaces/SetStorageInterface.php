@@ -1,6 +1,6 @@
 <?php
 
-namespace Apons\TimeSeriesSet;
+namespace Apons\TimeSeriesSet\Interfaces;
 
 interface SetStorageInterface {
   public function clear(): void;

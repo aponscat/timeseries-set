@@ -1,6 +1,8 @@
 <?php
 
-namespace Apons\TimeSeriesSet;
+namespace Apons\TimeSeriesSet\Adapters\Array;
+
+use Apons\TimeSeriesSet\Interfaces\SetStorageInterface;
 
 class ArraySetStorage implements SetStorageInterface {
 

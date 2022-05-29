@@ -3,9 +3,9 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Apons\TimeSeriesSet\TimeSeriesSet;
-use Apons\TimeSeriesSet\MemcachedSet;
-use Apons\TimeSeriesSet\SetStorageInterface;
-use Apons\TimeSeriesSet\MemcachedSetStorage;
+use Apons\TimeSeriesSet\Adapters\Memcached\MemcachedSet;
+use Apons\TimeSeriesSet\Adapters\Memcached\MemcachedSetStorage;
+use Apons\TimeSeriesSet\Interfaces\SetStorageInterface;
 
 final class TimeSeriesSetMemcacheTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Apons\TimeSeriesSet;
+namespace Apons\TimeSeriesSet\Interfaces;
 
 interface SetInterface {
   public function __construct(SetStorageInterface $s);

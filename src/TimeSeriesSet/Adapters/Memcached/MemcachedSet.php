@@ -1,16 +1,20 @@
 <?php
 
-namespace Apons\TimeSeriesSet;
+namespace Apons\TimeSeriesSet\Adapters\Memcached;
 
-class ArraySet implements SetInterface{
+use Apons\TimeSeriesSet\Interfaces\SetInterface;
+use Apons\TimeSeriesSet\Interfaces\SetStorageInterface;
 
-  private $s;
+class MemcachedSet implements SetInterface {
+  private SetStorageInterface $s;
 
-  public function __construct (SetStorageInterface $s){
+  public function __construct(SetStorageInterface $s)
+  {
     $this->s=$s;
   }
 
-  public function clear() {
+  public function clear()
+  {
     $this->s->clear();
   }
 
@@ -22,11 +26,11 @@ class ArraySet implements SetInterface{
 
   public function getAllTagsInTime(string $dateString): ?array
   {
-    $dateValues=$this->s->get($dateString);
-    if ($dateValues)
+    $allTagsInTime=$this->s->get($dateString);
+    if ($allTagsInTime)
     {
         $result=[];
-        $tags=explode(',', $dateValues);
+        $tags=explode(',', $allTagsInTime);
         foreach ($tags as $tag)
         {
             $result[$tag]=$this->s->get("$dateString:$tag");

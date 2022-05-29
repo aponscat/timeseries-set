@@ -1,6 +1,8 @@
 <?php
 
-namespace Apons\TimeSeriesSet;
+namespace Apons\TimeSeriesSet\Adapters\Memcached;
+
+use Apons\TimeSeriesSet\Interfaces\SetStorageInterface;
 
 class MemcachedSetStorage implements SetStorageInterface {
   private int $expiry=3600;

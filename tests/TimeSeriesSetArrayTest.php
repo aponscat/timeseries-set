@@ -3,8 +3,8 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use Apons\TimeSeriesSet\TimeSeriesSet;
-use Apons\TimeSeriesSet\ArraySet;
-use Apons\TimeSeriesSet\ArraySetStorage;
+use Apons\TimeSeriesSet\Adapters\Array\ArraySet;
+use Apons\TimeSeriesSet\Adapters\Array\ArraySetStorage;
 
 final class TimeSeriesSetArrayTest extends TestCase
 {
