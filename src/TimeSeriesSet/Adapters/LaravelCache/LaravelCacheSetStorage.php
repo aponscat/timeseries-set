@@ -26,7 +26,9 @@ class LaravelCacheSetStorage implements SetStorageInterface {
       }
       else
       {
-        $this->m->increment($key);
+        $num=(int)$this->m->get($key);
+        $num=$num+1;
+        $this->m->set($key, $num, $this->expiry);
       }
     }
   
@@ -38,7 +40,8 @@ class LaravelCacheSetStorage implements SetStorageInterface {
       }
       else
       {
-        $this->m->append($key, ",$value");
+        $current=$this->m->get($key);
+        $this->m->set($key, $current.",$value", $this->expiry);
       }
     }
   

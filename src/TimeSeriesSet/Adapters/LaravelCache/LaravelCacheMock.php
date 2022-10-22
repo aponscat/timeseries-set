@@ -25,19 +25,8 @@ class LaravelCacheMock {
         return false;
     }
 
-    public function set(string $key, string $value, int $ttl) {
+    public function set(string $key, string $value, int $ttl=3600) {
         $this->keys[$key]=$value;
-    }
-
-    public function increment($key) {
-        $num=(int)$this->get($key);
-        $num=$num+1;
-        $this->set($key, $num, $this->ttl);
-    }
-
-    public function append(string $key, string $value) {
-        $currentValue=$this->get($key);
-        $this->set($key, $currentValue.$value, $this->ttl);
     }
 
 }
