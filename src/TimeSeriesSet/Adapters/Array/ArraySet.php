@@ -17,6 +17,11 @@ class ArraySet implements SetInterface{
     $this->s->clear();
   }
 
+  public function increment (string $dateString, string $tag): void
+  {
+    $this->s->setOrIncrement("$dateString:$tag");
+  }
+
   public function add (string $dateString, string $tag): void
   {
     $this->s->setOrIncrement("$dateString:$tag");

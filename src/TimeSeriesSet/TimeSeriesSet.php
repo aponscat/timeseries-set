@@ -19,6 +19,12 @@ class TimeSeriesSet {
     $this->cacheSet->clear();
   }
 
+  public function increment (string|int $tag, int $time=null): void
+  {
+    $dateString=$this->getDateString($time);
+    $this->cacheSet->increment($dateString, $tag);
+  }
+
   public function add (string|int $tag, int $time=null): void
   {
     $dateString=$this->getDateString($time);
